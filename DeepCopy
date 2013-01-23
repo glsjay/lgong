@@ -1,0 +1,17 @@
+class A implements Serializable {
+    String str;
+    A(String str) { this.str=str; }
+}
+
+A deepCopy(A a) {
+  A b=null;
+	try {
+		ByteArrayOutputStream bos = new ByteArrayOutputStream();
+		ObjectOutputStream oos = new ObjectOutputStream(bos);
+		oos.writeObject(a);               //自读
+		ByteArrayInputStream bis=new ByteArrayInputStream(bos.toByteArray());
+		ObjectInputStream ois=new ObjectInputStream(bis);
+		b = (A) ois.readObject();       //自取
+	} catch (Exception e) { }
+	return b;
+}
